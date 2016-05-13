@@ -1,6 +1,6 @@
 #!/usr/bin/python3.5
 
-# Your Name
+# Johanna O'Day
 # Physics 91SI Spring 2015
 # Lab #12, Part 2
 
@@ -15,7 +15,7 @@ def read_contacts(file):
 	"""Reads contacts from the given file object, returning them as a list."""
 	# Sample regex: replace this with your own
 	# don't forget the raw string r prefix!
-	regex = re.compile(r"(\w+),\s(\w+).+")
+	regex = re.compile(r"(([A-Z]*[a-z]*){1}, ([A-Z]*[a-z]*)){1} (\([\w]+@{1}[\s\S]+\.[\w]+[\.[\s\S]]*\))")
 	contacts = []	# Start an empty list
 
 	for line in file:
@@ -28,7 +28,7 @@ def read_contacts(file):
 			person = match.groups()
 			# c_dict = match.groupdict()
 			contacts.append(person)
-
+	contacts =sorted(contacts,key = lambda x:x[2],reverse=False)
 	return contacts
 
 
@@ -41,11 +41,13 @@ def print_contacts(contacts):
 		####
 		# Your code goes here! (replace what's below)
 		####
-		last, first = person[0:2]
-
+		last = person[1]
+		first = person[2]
+		email_long = person[3]
+		email = email_long[1:len(email_long)-1]
 		# This is Python's "string interpolation"
 		# for C users, it's very similar to printf
-		print ("%s %s" % (first, last))
+		print ("%s %s" % (first, last) + ": " + (email))
 
 
 def main():
